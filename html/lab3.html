@@ -1,0 +1,848 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lab3</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-13"><meta name="DC.source" content="lab3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Exercicio 8</a></li><li><a href="#3">Exercicio 9</a></li><li><a href="#5">Exercicio 10</a></li><li><a href="#7">Exercicio 11</a></li><li><a href="#9">Exercicio 12</a></li><li><a href="#11">Exercicio 13</a></li></ul></div><h2 id="1">Exercicio 8</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
+clear;
+close <span class="string">all</span>;
+
+<span class="comment">%Tempo de simulacao</span>
+ttotal = 10;
+
+<span class="comment">%Condicoes iniciais</span>
+L = 0.5;
+M = 0.15;
+l = 0.4;
+m = 0.2;
+k = 3;
+beta = 1;
+g = 9.8;
+T = 0;
+
+<span class="comment">%Calculo das matrizes espaco de estado</span>
+J = ((M*L^2)/3) + (m * l^2);
+a1 = (g * (M *(L/2) + m * l) - k) / J;
+a2 = -(beta / J);
+
+A = [0 1 ; a1 a2];
+B = [0;  1/J];
+C = [1 0; 0 1];
+D = [ 0; 0];
+
+<span class="comment">%Calculo dos vectores proprios e valores proprios</span>
+[vec_prop, val_prop] = eig(A);
+
+<span class="comment">%Calculo numero de vectores proprios</span>
+[s ~] = size(vec_prop);
+
+<span class="comment">%Simular para cada vector proprio</span>
+<span class="keyword">for</span> n = 1:s
+    x0 = vec_prop(:,n);
+    sim(<span class="string">'space_state_model'</span>);
+    teta = y(:,1);
+    teta_p = y (:,2);
+    plot(teta, teta_p, <span class="string">'DisplayName'</span>, sprintf(<span class="string">'x0 = [%0f %0f]'</span>, x0(1), x0(2)));
+    hold <span class="string">on</span>;
+<span class="keyword">end</span>
+
+title(<span class="string">'Espaco de estados'</span>);
+xlabel(<span class="string">'\theta [rad]'</span>);
+ylabel(<span class="string">'$\dot{\theta}$ [rad/s]'</span>, <span class="string">'Interpreter'</span>, <span class="string">'Latex'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
+</pre><img vspace="5" hspace="5" src="lab3_01.png" alt=""> <p><b>Comentarios:</b></p><p>Verifica-se o esperado teoricamente, escolher como condicoes iniciais os vectores proprios do sistema leva a uma resposta de trajectoria rectilinea no plano de fase.</p><h2 id="3">Exercicio 9</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
+clear;
+close <span class="string">all</span>;
+
+<span class="comment">%Tempo de simulacao</span>
+ttotal = 10;
+
+<span class="comment">%Condicoes iniciais</span>
+L = 0.25;
+M = 0.1;
+k = 0.35;
+beta = 0.001;
+g = 9.8;
+x0 = [pi/4 0];
+T = 0;
+
+<span class="comment">%Funcoes auxiliares</span>
+aux= @(m, l) k-g*(((M*L)/2) + m*l);
+J = @(m, l) ((M*L^2)/3) + (m * l^2);
+qsi = @(m, l) beta./(2 * sqrt(aux(m, l).*J(m,l)));
+wn = @(m, l) sqrt(aux(m, l) / J(m,l));                          <span class="comment">%frequencia das oscilacoes naturais</span>
+wa = @(m, l) wn(m, l) * sqrt(1 - qsi(m, l).^2);             <span class="comment">%frequencia das oscilacoes amortecidas</span>
+
+<span class="comment">%Valores para serem testados</span>
+m = linspace(0, 0.5, 1000);
+l = linspace(0.05, L, 1000);
+
+BPM = [50, 150];
+
+BPM_c = zeros(length(m), length(l));
+
+<span class="keyword">for</span> n = 1:length(m)
+    <span class="keyword">for</span> i = 1:length(l)
+        qsi_c = qsi(m(n), l(i));
+
+        <span class="comment">%verifica se oscilacao e possivel</span>
+        <span class="keyword">if</span> imag(qsi_c) == 0 &amp;&amp; real(qsi_c) &lt; 1
+            BPM_c(n, i) = (60 * wa( m(n) , l(i) ))/pi;
+        <span class="keyword">else</span>
+            BPM_c(n, i) = NaN;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+l_ind = zeros(length(m), length(BPM));        <span class="comment">%vector para guardar indices de l</span>
+error = zeros(length(m), 1);                            <span class="comment">%vector para guardar erros calculados entre BPM pretendido e calculado</span>
+
+<span class="comment">%testar os valores para m de modo a encontrar os valores de l que originam BPM mais proximo do pretendido</span>
+<span class="keyword">for</span> n = 1:length(m)
+    <span class="keyword">for</span> i = 1:length(BPM)
+        [error_c, l_ind(n, i)] = min(abs(BPM_c(n, :) - BPM(i)));
+        error(n) = error(n) + error_c;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+[~, m_ind] = min(error);
+m_c = m(m_ind);
+
+fprintf(<span class="string">"Massa calulada: %f kg\n"</span>, m_c);
+
+l_c = l(l_ind(m_ind, :));
+
+BPM_v = BPM_c(m_ind, l_ind(m_ind, :));      <span class="comment">%valores de BPM calculados</span>
+BPM_s = zeros(size(BPM));                           <span class="comment">% vector para guardar BPM simulados</span>
+
+<span class="comment">%simulacao do sistema com os valores de m e l calulados e verificar a frequencia</span>
+<span class="keyword">for</span> n = 1:length(BPM)
+    m = m_c;
+    l = l_c(n);
+
+    <span class="comment">%Calculo das matrizes espaco de estado</span>
+    J = ((M*L^2)/3) + (m * l^2);
+    a1 = (g * (M *(L/2) + m * l) - k) / J;
+    a2 = -(beta / J);
+
+    A = [0 1 ; a1 a2];
+    B = [0;  1/J];
+    C = [1 0; 0 1];
+    D = [ 0; 0];
+
+    sim(<span class="string">'space_state_model'</span>);
+
+    teta = y(:,1);
+
+    [pcs, locs] = findpeaks(teta);
+
+    waL = zeros(length(locs)-1, 1);
+
+    <span class="comment">%calculo da frequencia oscilatoria amortecida</span>
+    <span class="keyword">for</span> i = 1:(length(locs)-1)
+        TaL = t(locs(i+1))-t(locs(i));
+        waL(i) = (2*pi)/TaL;
+    <span class="keyword">end</span>
+
+    BPM_s(n) = (60*mean(waL))/pi;
+
+    qsi_s = qsi(m, l);
+    wn_s = wn(m, l);
+
+    fprintf(<span class="string">'BPM = %d:\n'</span>, BPM(n));
+    fprintf(<span class="string">'\t l = %f m\n'</span>, l_c(n));
+    fprintf(<span class="string">'\t BPM teoricamente aproximado: %f\n'</span>, BPM_v(n));
+    fprintf(<span class="string">'\t BPM obtido da simulacao: %f\n'</span>, BPM_s(n));
+
+    figure;
+    plot(t, teta, <span class="string">'DisplayName'</span>, <span class="string">'\theta (t)'</span>);
+    hold <span class="string">on</span>;
+    <span class="comment">%envolventes superior e inferior</span>
+    plot(t, x0(1)*exp (-(qsi_s)*(wn_s)*t), <span class="string">'r'</span>, <span class="string">'DisplayName'</span>, <span class="string">'Envolvente superior'</span>);
+    plot(t, -x0(1)*exp (-(qsi_s)*(wn_s)*t), <span class="string">'r'</span>,  <span class="string">'DisplayName'</span>, <span class="string">'Envolvente inferior'</span>);
+
+    title(sprintf(<span class="string">'Posicao angular do metronomo a %d BPM'</span>, BPM(n)));
+    xlabel(<span class="string">'Tempo [s]'</span>);
+    ylabel(<span class="string">'\theta [rad]'</span>);
+    legend(<span class="string">'Location'</span>, <span class="string">'NorthEast'</span>);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Massa calulada: 0.115616 kg
+BPM = 50:
+	 l = 0.168318 m
+	 BPM teoricamente aproximado: 50.009653
+	 BPM obtido da simulacao: 50.000000
+BPM = 150:
+	 l = 0.062613 m
+	 BPM teoricamente aproximado: 149.995169
+	 BPM obtido da simulacao: 150.000000
+</pre><img vspace="5" hspace="5" src="lab3_02.png" alt=""> <img vspace="5" hspace="5" src="lab3_03.png" alt=""> <p><b>Comentarios:</b></p><p>Observa-se que o comportamento do sistema vai de acordo com o esperado, verificando-se assim que o dimensionamento da massa e da posicao da mesma estao correctos. Verifica-se tambem que o decaimento, demonstrado pela envolvente, esta directamente relacionado com o valor da frequencia de oscilacoes do sistema, observando-se entao que para um maior BPM existe decaimento mais rapido. As diferencas obtidas entre os valores esperados e obtidos podem ser aproximados aumentando o numero de passos (aumentando o numero de pontos testados para m e l).</p><h2 id="5">Exercicio 10</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
+close <span class="string">all</span>;
+
+BPM_s_nl = zeros(size(BPM));
+BPM_s_nlr = zeros(size(BPM));
+
+<span class="comment">%simular o sistema nao linear para cada um dos BPM</span>
+<span class="keyword">for</span> n = 1:length(BPM)
+    l = l_c(n);
+
+    sim(<span class="string">'NL_model'</span>);
+
+    [pcs, locs] = findpeaks(teta);
+
+    TaNL = zeros(length(locs)-1, 1);
+    waNL = zeros(length(locs)-1, 1);
+
+    <span class="comment">%calcular frequencia oscilatoria amortecida</span>
+    <span class="keyword">for</span> i = 1:(length(locs)-1)
+        TaNL(i) = t(locs(i+1)) - t(locs(i));
+        waNL(i) = (2*pi)/TaNL(i);
+    <span class="keyword">end</span>
+
+    BPM_s_nl(n) = (60*mean(waNL))/pi;
+<span class="keyword">end</span>
+
+l_c_nl = l_c;
+
+BPM_s_nlr = BPM_s_nl;
+
+error = BPM - BPM_s_nlr;
+
+error_tolerance = 0.01;     <span class="comment">%toleracia de erro entro o valor pretendido e calculado</span>
+
+<span class="keyword">while</span>( sum(abs(error) &gt; error_tolerance ))
+    <span class="keyword">for</span> n = 1:length(BPM)
+    l_c_nl(n) = l_c_nl(n) + (BPM_s_nlr(n)-BPM(n))*0.01*error_tolerance;
+
+    l = l_c_nl(n);
+
+    sim(<span class="string">'NL_model'</span>);
+
+    [pcs, locs] = findpeaks(teta);
+
+    waNL = zeros(length(locs)-1, 1);
+
+    <span class="comment">%calculo da frequencia oscilatoria amortecida</span>
+    <span class="keyword">for</span> i = 1:(length(locs)-1)
+        TaNL= t(locs(i+1)) - t(locs(i));
+        waNL(i) = (2*pi)/TaNL;
+    <span class="keyword">end</span>
+
+    BPM_s_nlr(n) = (60*mean(waNL))/pi;
+    <span class="keyword">end</span>
+
+    error = BPM - BPM_s_nlr;
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> n = 1:length(BPM)
+    fprintf(<span class="string">'BPM = %d\n\n'</span>, BPM(n));
+    fprintf(<span class="string">'\t Sistema linearizado: %f BPM, l=%f m\n'</span>, BPM_s(n), l_c(n));
+    fprintf(<span class="string">'\t Sistema nao linear: %f BPM, l=%f m\n'</span>, BPM_s_nl(n), l_c(n));
+    fprintf(<span class="string">'\t Sistema nao linear refinado: %f BPM, l=%f m\n'</span>, BPM_s_nlr(n), l_c_nl(n));
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">BPM = 50
+
+	 Sistema linearizado: 50.000000 BPM, l=0.168318 m
+	 Sistema nao linear: 52.912049 BPM, l=0.168318 m
+	 Sistema nao linear refinado: 50.009882 BPM, l=0.171269 m
+BPM = 150
+
+	 Sistema linearizado: 150.000000 BPM, l=0.062613 m
+	 Sistema nao linear: 151.463940 BPM, l=0.062613 m
+	 Sistema nao linear refinado: 150.004479 BPM, l=0.064128 m
+</pre><p><b>Comentarios:</b></p><p>Utilizando o valor de l calculado anteriormente verifica-se um erro elevado das frequencias de oscilacao obtidas para o sistema nao linearizado. Apos o refinamento obtem-se entao frequencias de oscilacao proximas das pretendidas.</p><h2 id="7">Exercicio 11</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
+close <span class="string">all</span>;
+
+ttotal = 15;
+
+T_v = [ 0.03 0.05 ];
+
+threshold_v = 0.1;
+
+tetaf = figure;
+dtetaf = figure;
+T_appf = figure;
+
+<span class="keyword">for</span> n = 1:length(T_v)
+    T = T_v(n);
+    l = l_c(2);
+
+    sim(<span class="string">'relojoaria_model'</span>);
+
+    figure(tetaf);
+    hold <span class="string">on</span>;
+    plot(t, teta, <span class="string">'DisplayName'</span>, sprintf(<span class="string">'Binario externo: %f'</span>, T));
+
+    figure(dtetaf);
+    hold <span class="string">on</span>;
+    plot(t, dteta, <span class="string">'DisplayName'</span>, sprintf(<span class="string">'Binario externo: %f'</span>, T));
+
+    figure(T_appf);
+    hold <span class="string">on</span>;
+    plot(t, T_app, <span class="string">'DisplayName'</span>, sprintf(<span class="string">'Binario externo: %f'</span>, T));
+
+    [pcs, locs] = findpeaks(teta);
+
+    waT = zeros(length(locs)-1, 1);
+
+    <span class="keyword">for</span> i = 1:(length(locs)-1)
+        TaT = t(locs(i+1) )- t(locs(i));
+        waT(i) = (2*pi)/TaT;
+    <span class="keyword">end</span>
+
+    BPM_T = (60*mean(waT))/pi;
+
+    fprintf(<span class="string">'Para 150 BPM pretendidos e binario externo = %f tem-se %f BPM\n'</span>, T, BPM_T);
+<span class="keyword">end</span>
+
+figure(tetaf);
+grid <span class="string">on</span>;
+title(<span class="string">'Posicao angular do metronomo'</span>);
+xlabel(<span class="string">'Tempo [s]'</span>);
+ylabel(<span class="string">'\theta [rad]'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'NorthEastOutside'</span>);
+
+figure(dtetaf);
+grid <span class="string">on</span>;
+title(<span class="string">'Velocidade angular do metronomo'</span>);
+xlabel(<span class="string">'Tempo [s]'</span>);
+ylabel(<span class="string">'$\dot{\theta}$ [rad/s]'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'NorthEastOutside'</span>);
+
+figure(T_appf);
+grid <span class="string">on</span>;
+title(<span class="string">'Binario aplicado no metronomo'</span>);
+xlabel(<span class="string">'Tempo [s]'</span>);
+ylabel(<span class="string">'T/J'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'NorthEastOutside'</span>);
+</pre><pre class="codeoutput">Para 150 BPM pretendidos e binario externo = 0.030000 tem-se 155.523206 BPM
+Para 150 BPM pretendidos e binario externo = 0.050000 tem-se 158.230313 BPM
+</pre><img vspace="5" hspace="5" src="lab3_04.png" alt=""> <img vspace="5" hspace="5" src="lab3_05.png" alt=""> <img vspace="5" hspace="5" src="lab3_06.png" alt=""> <p><b>Comentarios:</b></p><p>Para um binario externo de 0.03 pode-se observar que existe um descaimento da amplitude lento na resposta do sistema, acabando por estabilizar.</p><p>Para um binario externo de 0.05 pode-se observar que existe um crescimento da amplitudo lento na resposta do sistema, acabando por estabilizar.</p><p>Tambem se verifica que para ambos os casos a frequencia e afectada, aumentando. Isto vai de acordo ao esperado fisicamente por esta forca aplicada ao sistema no sentido do movimento faz com o que o sistema adquira maior velocidade angular e por sua altera a frequencia de oscilacao do mesmo.</p><h2 id="9">Exercicio 12</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
+close <span class="string">all</span>;
+
+l = l_c;
+
+<span class="keyword">for</span> n = 1:length(BPM)
+    J = ((M*L^2)/3) + (m * l(n)^2);
+    a1 = (g * (M *(L/2) + m * l(n)) - k) / J;
+    a2 = -(beta / J);
+
+    A = [0 1 ; a1 a2];
+    B = [0;  1/J];
+    C = [1 0];
+    D = [0];
+
+    figure;
+    bode(ss(A, B, C, D));
+    grid <span class="string">on</span>;
+    title(sprintf(<span class="string">'Diagrama de bode para %d BPM (l = %6f m)'</span>, BPM(n), l(n)));
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="lab3_07.png" alt=""> <img vspace="5" hspace="5" src="lab3_08.png" alt=""> <p><b>Comentarios:</b></p><pre>Uma vez que nos encontramos na presenca de um sistema de segunda ordem com um valor de qsi &lt; 0.707, verifica-se que o diagrama de bode de amplitude apresenta um pico de ressonancia para os valores de l dado.</pre><p>Observa-se que o comportamento do diagrama de bode de fase e identico para os dois casos de estudo, algo que nao e surprendente visto que a alteracao do parametro l apenas afecta a localizacao dos polos e por sua vez apenas onde o decrescimo de fase acontece.</p><p>Conclui-se que para diferentes valores de l, o sistema responde de forma semelhante mas com velocidades de resposta diferentes. De notar que BPM = 150 e mais rapido.</p><h2 id="11">Exercicio 13</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
+close <span class="string">all</span>;
+
+<span class="comment">%Condicoes iniciais</span>
+L = 0.25;
+M = 0.1;
+k = 0.35;
+beta = 0.001;
+g = 9.8;
+x0 = [pi/4 0];
+T = 0;
+l = l_c(1);
+
+J = ((M*L^2)/3) + (m * l^2);
+a1 = (g * (M *(L/2) + m * l) - k) / J;
+a2 = -(beta / J);
+
+A = [0 1 ; a1 a2];
+B = [0;  1/J];
+C = [1 0; 0 1];
+D = [ 0; 0];
+
+[~,fpeak] = getPeakGain(ss(A,B,C,D));
+
+wp = fpeak;
+
+syms <span class="string">m_s</span> <span class="string">positive</span>
+
+J = M*L^2/3+m_s*l^2;
+a = (k-g*((M*L)/2 + m_s*l))/J;
+
+wn = sqrt(a);
+qsi = beta/(2*sqrt(a*J.^2));
+
+m_c = solve(wp == wn*sqrt(1-(2*(qsi^2))), m_s);
+m_c1 = double(m_c(1));
+
+fprintf(<span class="string">'Massa real: %f kg\n'</span>, m);
+fprintf(<span class="string">'Massa estimada: %f kg\n'</span>, m_c1);
+</pre><pre class="codeoutput">Massa real: 0.115616 kg
+Massa estimada: 0.115565 kg
+</pre><p><b>Comentarios:</b></p><p>Pode-se verificar que o valor estimado e proximo do real, logo a estrategia de medicao e apropriada.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercicio 8
+%Reset do ambiente de trabalho
+clear;
+close all;
+
+%Tempo de simulacao
+ttotal = 10;
+
+%Condicoes iniciais
+L = 0.5;
+M = 0.15;
+l = 0.4;
+m = 0.2;
+k = 3;
+beta = 1;
+g = 9.8;
+T = 0;
+
+%Calculo das matrizes espaco de estado
+J = ((M*L^2)/3) + (m * l^2);
+a1 = (g * (M *(L/2) + m * l) - k) / J;
+a2 = -(beta / J);
+
+A = [0 1 ; a1 a2];
+B = [0;  1/J];
+C = [1 0; 0 1];
+D = [ 0; 0];
+
+%Calculo dos vectores proprios e valores proprios
+[vec_prop, val_prop] = eig(A);
+
+%Calculo numero de vectores proprios
+[s ~] = size(vec_prop);
+
+%Simular para cada vector proprio
+for n = 1:s
+    x0 = vec_prop(:,n);
+    sim('space_state_model');
+    teta = y(:,1);
+    teta_p = y (:,2);
+    plot(teta, teta_p, 'DisplayName', sprintf('x0 = [%0f %0f]', x0(1), x0(2)));
+    hold on;
+end
+
+title('Espaco de estados');
+xlabel('\theta [rad]');
+ylabel('$\dot{\theta}$ [rad/s]', 'Interpreter', 'Latex');
+legend('Location', 'NorthEast');
+
+%%
+% *Comentarios:*
+%
+% Verifica-se o esperado teoricamente, escolher como condicoes iniciais os vectores proprios do sistema leva a uma resposta de trajectoria rectilinea no plano de fase.
+
+%% Exercicio 9
+%Reset do ambiente de trabalho
+clear;
+close all;
+
+%Tempo de simulacao
+ttotal = 10;
+
+%Condicoes iniciais
+L = 0.25;
+M = 0.1;
+k = 0.35;
+beta = 0.001;
+g = 9.8;
+x0 = [pi/4 0];
+T = 0;
+
+%Funcoes auxiliares
+aux= @(m, l) k-g*(((M*L)/2) + m*l);
+J = @(m, l) ((M*L^2)/3) + (m * l^2);
+qsi = @(m, l) beta./(2 * sqrt(aux(m, l).*J(m,l)));
+wn = @(m, l) sqrt(aux(m, l) / J(m,l));                          %frequencia das oscilacoes naturais
+wa = @(m, l) wn(m, l) * sqrt(1 - qsi(m, l).^2);             %frequencia das oscilacoes amortecidas
+
+%Valores para serem testados
+m = linspace(0, 0.5, 1000);
+l = linspace(0.05, L, 1000);
+
+BPM = [50, 150];
+
+BPM_c = zeros(length(m), length(l));
+
+for n = 1:length(m)
+    for i = 1:length(l)
+        qsi_c = qsi(m(n), l(i));
+
+        %verifica se oscilacao e possivel
+        if imag(qsi_c) == 0 && real(qsi_c) < 1
+            BPM_c(n, i) = (60 * wa( m(n) , l(i) ))/pi;
+        else
+            BPM_c(n, i) = NaN;
+        end
+    end
+end
+
+l_ind = zeros(length(m), length(BPM));        %vector para guardar indices de l
+error = zeros(length(m), 1);                            %vector para guardar erros calculados entre BPM pretendido e calculado
+
+%testar os valores para m de modo a encontrar os valores de l que originam BPM mais proximo do pretendido
+for n = 1:length(m)
+    for i = 1:length(BPM)
+        [error_c, l_ind(n, i)] = min(abs(BPM_c(n, :) - BPM(i)));
+        error(n) = error(n) + error_c;
+    end
+end
+
+[~, m_ind] = min(error);
+m_c = m(m_ind);
+
+fprintf("Massa calulada: %f kg\n", m_c);
+
+l_c = l(l_ind(m_ind, :));
+
+BPM_v = BPM_c(m_ind, l_ind(m_ind, :));      %valores de BPM calculados
+BPM_s = zeros(size(BPM));                           % vector para guardar BPM simulados
+
+%simulacao do sistema com os valores de m e l calulados e verificar a frequencia 
+for n = 1:length(BPM)
+    m = m_c;
+    l = l_c(n);
+
+    %Calculo das matrizes espaco de estado
+    J = ((M*L^2)/3) + (m * l^2);
+    a1 = (g * (M *(L/2) + m * l) - k) / J;
+    a2 = -(beta / J);
+
+    A = [0 1 ; a1 a2];
+    B = [0;  1/J];
+    C = [1 0; 0 1];
+    D = [ 0; 0];
+
+    sim('space_state_model');
+    
+    teta = y(:,1);
+
+    [pcs, locs] = findpeaks(teta);
+
+    waL = zeros(length(locs)-1, 1);
+
+    %calculo da frequencia oscilatoria amortecida
+    for i = 1:(length(locs)-1)
+        TaL = t(locs(i+1))-t(locs(i));
+        waL(i) = (2*pi)/TaL;
+    end
+
+    BPM_s(n) = (60*mean(waL))/pi;
+
+    qsi_s = qsi(m, l);
+    wn_s = wn(m, l);
+
+    fprintf('BPM = %d:\n', BPM(n));
+    fprintf('\t l = %f m\n', l_c(n));
+    fprintf('\t BPM teoricamente aproximado: %f\n', BPM_v(n));
+    fprintf('\t BPM obtido da simulacao: %f\n', BPM_s(n));
+
+    figure;
+    plot(t, teta, 'DisplayName', '\theta (t)');
+    hold on;
+    %envolventes superior e inferior
+    plot(t, x0(1)*exp (-(qsi_s)*(wn_s)*t), 'r', 'DisplayName', 'Envolvente superior');
+    plot(t, -x0(1)*exp (-(qsi_s)*(wn_s)*t), 'r',  'DisplayName', 'Envolvente inferior');
+
+    title(sprintf('Posicao angular do metronomo a %d BPM', BPM(n)));
+    xlabel('Tempo [s]');
+    ylabel('\theta [rad]');
+    legend('Location', 'NorthEast');
+end
+
+%%
+% *Comentarios:*
+%
+% Observa-se que o comportamento do sistema vai de acordo com o esperado, verificando-se assim que o dimensionamento da massa e da posicao da mesma estao correctos. 
+% Verifica-se tambem que o decaimento, demonstrado pela envolvente, esta directamente relacionado com o valor da frequencia de oscilacoes do sistema, observando-se entao que para um maior BPM 
+% existe decaimento mais rapido. As diferencas obtidas entre os valores esperados e obtidos podem ser aproximados aumentando o numero de passos (aumentando o numero de pontos testados para m e l).
+
+%% Exercicio 10
+%Reset do ambiente de trabalho
+close all;
+
+BPM_s_nl = zeros(size(BPM));
+BPM_s_nlr = zeros(size(BPM));
+
+%simular o sistema nao linear para cada um dos BPM
+for n = 1:length(BPM)
+    l = l_c(n);
+
+    sim('NL_model');
+
+    [pcs, locs] = findpeaks(teta);
+
+    TaNL = zeros(length(locs)-1, 1);
+    waNL = zeros(length(locs)-1, 1);
+
+    %calcular frequencia oscilatoria amortecida
+    for i = 1:(length(locs)-1)
+        TaNL(i) = t(locs(i+1)) - t(locs(i));
+        waNL(i) = (2*pi)/TaNL(i);
+    end
+
+    BPM_s_nl(n) = (60*mean(waNL))/pi;
+end
+
+l_c_nl = l_c;
+
+BPM_s_nlr = BPM_s_nl;
+
+error = BPM - BPM_s_nlr;
+
+error_tolerance = 0.01;     %toleracia de erro entro o valor pretendido e calculado
+
+while( sum(abs(error) > error_tolerance ))
+    for n = 1:length(BPM)
+    l_c_nl(n) = l_c_nl(n) + (BPM_s_nlr(n)-BPM(n))*0.01*error_tolerance;
+
+    l = l_c_nl(n);
+
+    sim('NL_model');
+
+    [pcs, locs] = findpeaks(teta);
+
+    waNL = zeros(length(locs)-1, 1);
+
+    %calculo da frequencia oscilatoria amortecida
+    for i = 1:(length(locs)-1)
+        TaNL= t(locs(i+1)) - t(locs(i));
+        waNL(i) = (2*pi)/TaNL;
+    end
+
+    BPM_s_nlr(n) = (60*mean(waNL))/pi;
+    end
+
+    error = BPM - BPM_s_nlr;
+end
+
+for n = 1:length(BPM)
+    fprintf('BPM = %d\n\n', BPM(n));
+    fprintf('\t Sistema linearizado: %f BPM, l=%f m\n', BPM_s(n), l_c(n));
+    fprintf('\t Sistema nao linear: %f BPM, l=%f m\n', BPM_s_nl(n), l_c(n));
+    fprintf('\t Sistema nao linear refinado: %f BPM, l=%f m\n', BPM_s_nlr(n), l_c_nl(n));
+end
+
+%%
+% *Comentarios:*
+%
+% Utilizando o valor de l calculado anteriormente verifica-se um erro elevado das frequencias de oscilacao obtidas para o sistema nao linearizado. Apos o refinamento obtem-se entao frequencias de oscilacao proximas das pretendidas.
+
+%% Exercicio 11
+%Reset do ambiente de trabalho
+close all;
+
+ttotal = 15;
+
+T_v = [ 0.03 0.05 ];
+
+threshold_v = 0.1;
+
+tetaf = figure;
+dtetaf = figure;
+T_appf = figure;
+
+for n = 1:length(T_v)
+    T = T_v(n);
+    l = l_c(2);
+
+    sim('relojoaria_model');
+
+    figure(tetaf);
+    hold on;
+    plot(t, teta, 'DisplayName', sprintf('Binario externo: %f', T));
+
+    figure(dtetaf);
+    hold on;
+    plot(t, dteta, 'DisplayName', sprintf('Binario externo: %f', T));
+
+    figure(T_appf);
+    hold on;
+    plot(t, T_app, 'DisplayName', sprintf('Binario externo: %f', T));
+
+    [pcs, locs] = findpeaks(teta);
+
+    waT = zeros(length(locs)-1, 1);
+
+    for i = 1:(length(locs)-1)
+        TaT = t(locs(i+1) )- t(locs(i));
+        waT(i) = (2*pi)/TaT;
+    end
+
+    BPM_T = (60*mean(waT))/pi;
+
+    fprintf('Para 150 BPM pretendidos e binario externo = %f tem-se %f BPM\n', T, BPM_T);
+end
+
+figure(tetaf);
+grid on;
+title('Posicao angular do metronomo');
+xlabel('Tempo [s]');
+ylabel('\theta [rad]');
+legend('Location', 'NorthEastOutside');
+
+figure(dtetaf);
+grid on;
+title('Velocidade angular do metronomo');
+xlabel('Tempo [s]');
+ylabel('$\dot{\theta}$ [rad/s]','Interpreter','Latex');
+legend('Location', 'NorthEastOutside');
+
+figure(T_appf);
+grid on;
+title('Binario aplicado no metronomo');
+xlabel('Tempo [s]');
+ylabel('T/J');
+legend('Location', 'NorthEastOutside');
+
+%%
+% *Comentarios:*
+%
+% Para um binario externo de 0.03 pode-se observar que existe um descaimento da amplitude lento na resposta do sistema, acabando por estabilizar. 
+%
+% Para um binario externo de 0.05 pode-se observar que existe um crescimento da amplitudo lento na resposta do sistema, acabando por estabilizar.
+%
+% Tambem se verifica que para ambos os casos a frequencia e afectada, aumentando. Isto vai de acordo ao esperado fisicamente por esta forca aplicada ao sistema no sentido do movimento faz com o que o sistema adquira maior velocidade angular e por sua altera a frequencia de oscilacao do mesmo.
+
+%% Exercicio 12
+%Reset do ambiente de trabalho
+close all;
+
+l = l_c;
+
+for n = 1:length(BPM)
+    J = ((M*L^2)/3) + (m * l(n)^2);
+    a1 = (g * (M *(L/2) + m * l(n)) - k) / J;
+    a2 = -(beta / J);
+
+    A = [0 1 ; a1 a2];
+    B = [0;  1/J];
+    C = [1 0];
+    D = [0];
+
+    figure;
+    bode(ss(A, B, C, D));
+    grid on;
+    title(sprintf('Diagrama de bode para %d BPM (l = %6f m)', BPM(n), l(n)));
+end
+
+%%
+% *Comentarios:*
+%
+%  Uma vez que nos encontramos na presenca de um sistema de segunda ordem com um valor de qsi < 0.707, verifica-se que o diagrama de bode de amplitude apresenta um pico de ressonancia para os valores de l dado.
+%
+% Observa-se que o comportamento do diagrama de bode de fase e identico para os dois casos de estudo, algo que nao e surprendente visto que a alteracao do parametro l apenas afecta a localizacao dos polos e por sua vez apenas onde o decrescimo de fase acontece.
+%
+% Conclui-se que para diferentes valores de l, o sistema responde de forma semelhante mas com velocidades de resposta diferentes. De notar que BPM = 150 e mais rapido.
+
+%% Exercicio 13
+%Reset do ambiente de trabalho
+close all;
+
+%Condicoes iniciais
+L = 0.25;
+M = 0.1;
+k = 0.35;
+beta = 0.001;
+g = 9.8;
+x0 = [pi/4 0];
+T = 0;
+l = l_c(1);
+
+J = ((M*L^2)/3) + (m * l^2);
+a1 = (g * (M *(L/2) + m * l) - k) / J;
+a2 = -(beta / J);
+
+A = [0 1 ; a1 a2];
+B = [0;  1/J];
+C = [1 0; 0 1];
+D = [ 0; 0];
+
+[~,fpeak] = getPeakGain(ss(A,B,C,D));
+
+wp = fpeak;
+
+syms m_s positive
+
+J = M*L^2/3+m_s*l^2;
+a = (k-g*((M*L)/2 + m_s*l))/J;
+
+wn = sqrt(a);
+qsi = beta/(2*sqrt(a*J.^2));
+
+m_c = solve(wp == wn*sqrt(1-(2*(qsi^2))), m_s);
+m_c1 = double(m_c(1));
+
+fprintf('Massa real: %f kg\n', m);
+fprintf('Massa estimada: %f kg\n', m_c1);
+
+%%
+% *Comentarios:*
+%
+% Pode-se verificar que o valor estimado e proximo do real, logo a estrategia de medicao e apropriada.
+##### SOURCE END #####
+--></body></html>
