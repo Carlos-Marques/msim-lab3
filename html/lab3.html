@@ -305,13 +305,13 @@ error_tolerance = 0.01;     <span class="comment">%toleracia de erro entro o val
 </pre><pre class="codeoutput">BPM = 50
 
 	 Sistema linearizado: 50.000000 BPM, l=0.168318 m
-	 Sistema nao linear: 52.912049 BPM, l=0.168318 m
-	 Sistema nao linear refinado: 50.009882 BPM, l=0.171269 m
+	 Sistema nao linear: 77.508023 BPM, l=0.168318 m
+	 Sistema nao linear refinado: 49.999994 BPM, l=0.190407 m
 BPM = 150
 
 	 Sistema linearizado: 150.000000 BPM, l=0.062613 m
 	 Sistema nao linear: 151.463940 BPM, l=0.062613 m
-	 Sistema nao linear refinado: 150.004479 BPM, l=0.064128 m
+	 Sistema nao linear refinado: 150.009455 BPM, l=0.065247 m
 </pre><p><b>Comentarios:</b></p><p>Utilizando o valor de l calculado anteriormente verifica-se um erro elevado das frequencias de oscilacao obtidas para o sistema nao linearizado. Apos o refinamento obtem-se entao frequencias de oscilacao proximas das pretendidas.</p><h2 id="7">Exercicio 11</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
 close <span class="string">all</span>;
 
@@ -377,8 +377,8 @@ title(<span class="string">'Binario aplicado no metronomo'</span>);
 xlabel(<span class="string">'Tempo [s]'</span>);
 ylabel(<span class="string">'T/J'</span>);
 legend(<span class="string">'Location'</span>, <span class="string">'NorthEastOutside'</span>);
-</pre><pre class="codeoutput">Para 150 BPM pretendidos e binario externo = 0.030000 tem-se 155.523206 BPM
-Para 150 BPM pretendidos e binario externo = 0.050000 tem-se 158.230313 BPM
+</pre><pre class="codeoutput">Para 150 BPM pretendidos e binario externo = 0.030000 tem-se 155.480345 BPM
+Para 150 BPM pretendidos e binario externo = 0.050000 tem-se 158.201076 BPM
 </pre><img vspace="5" hspace="5" src="lab3_04.png" alt=""> <img vspace="5" hspace="5" src="lab3_05.png" alt=""> <img vspace="5" hspace="5" src="lab3_06.png" alt=""> <p><b>Comentarios:</b></p><p>Para um binario externo de 0.03 pode-se observar que existe um descaimento da amplitude lento na resposta do sistema, acabando por estabilizar.</p><p>Para um binario externo de 0.05 pode-se observar que existe um crescimento da amplitudo lento na resposta do sistema, acabando por estabilizar.</p><p>Tambem se verifica que para ambos os casos a frequencia e afectada, aumentando. Isto vai de acordo ao esperado fisicamente por esta forca aplicada ao sistema no sentido do movimento faz com o que o sistema adquira maior velocidade angular e por sua altera a frequencia de oscilacao do mesmo.</p><h2 id="9">Exercicio 12</h2><pre class="codeinput"><span class="comment">%Reset do ambiente de trabalho</span>
 close <span class="string">all</span>;
 
